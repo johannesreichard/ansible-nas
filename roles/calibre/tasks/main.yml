@@ -15,9 +15,9 @@
         image: linuxserver/calibre
         pull: true
         volumes:
-          - "{{ calibre_data_directory }}/data:/config:rw"
-          - "{{ calibre_books_directory }}:/books:rw"
-          - "{{ calibre_comics_directory }}:/comics:rw"
+          - "{{ calibre_data_directory }}/config:/config"
+          - "{{ calibre_books_root }}:/books"
+          - "{{ calibre_data_directory }}/data:/data"
         env:
           TZ: "{{ ansible_nas_timezone }}"
           PUID: "{{ calibre_user_id }}"
