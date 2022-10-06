@@ -73,10 +73,11 @@
       tags:
         - calibre
 
-    - role: calibremanager
+    - role: calibreweb
       tags:
         - calibremanager
       when: (calibremanager_enabled | default(False))
+        - calibreweb
 
     - role: cloudcmd
       tags:
