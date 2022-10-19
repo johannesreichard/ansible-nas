@@ -1,5 +1,5 @@
 ---
-- name: Start Calibre Manager
+- name: Start Calibre
   block:
     - name: Create Calibre Directories
       ansible.builtin.file:
@@ -39,7 +39,7 @@
           traefik.http.services.calibre.loadbalancer.server.port: "8080"
   when: calibre_enabled is true
 
-- name: Stop Calibre Manager
+- name: Stop Calibre
   block:
     - name: Stop Calibre
       community.docker.docker_container:

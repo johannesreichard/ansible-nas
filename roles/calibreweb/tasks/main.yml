@@ -1,29 +1,15 @@
 ---
-<<<<<<< HEAD
-- name: Start Calibre-web
-  block:
-    - name: Create Calibre-web Directories
-      ansible.builtin.file:
-=======
 - name: Start Calibre
   block:
     - name: Create Calibre-web Directories
       file:
->>>>>>> b6ac9743 (rename misnamed calibre role to calibreweb)
         path: "{{ item }}"
         state: directory
       with_items:
         - "{{ calibreweb_data_directory }}/config"
-<<<<<<< HEAD
-        - "{{ calibreweb_data_directory }}/data"
-
-    - name: Calibre-web Docker Container
-      community.docker.docker_container:
-=======
 
     - name: Calibre-web Docker Container
       docker_container:
->>>>>>> b6ac9743 (rename misnamed calibre role to calibreweb)
         name: "{{ calibreweb_container_name }}"
         image: linuxserver/calibre-web:latest
         pull: true
@@ -49,17 +35,10 @@
           traefik.http.services.calibreweb.loadbalancer.server.port: "8083"
   when: calibreweb_enabled is true
 
-<<<<<<< HEAD
-- name: Stop Calibre-web
-  block:
-    - name: Stop Calibre-web
-      community.docker.docker_container:
-=======
 - name: Stop Calibre
   block:
-    - name: Stop Calibre
+    - name: Stop Calibre-web
       docker_container:
->>>>>>> b6ac9743 (rename misnamed calibre role to calibreweb)
         name: "{{ calibreweb_container_name }}"
         state: absent
   when: calibreweb_enabled is false

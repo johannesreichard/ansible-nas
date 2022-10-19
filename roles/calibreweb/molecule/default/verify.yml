@@ -11,11 +11,7 @@
         name: "{{ calibreweb_container_name }}"
       register: result
 
-<<<<<<< HEAD
     - name: Check Calibre-web is running
-=======
-    - name: Check Calibre is running
->>>>>>> b6ac9743 (rename misnamed calibre role to calibreweb)
       assert:
         that:
           - result.container['State']['Status'] == "running"

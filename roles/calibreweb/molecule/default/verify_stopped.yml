@@ -6,21 +6,13 @@
     - include_vars:
         file: ../../defaults/main.yml
 
-<<<<<<< HEAD
     - name: Try and stop and remove Calibre-web
-=======
-    - name: Try and stop and remove Calibre
->>>>>>> b6ac9743 (rename misnamed calibre role to calibreweb)
       docker_container:
         name: "{{ calibreweb_container_name }}"
         state: absent
       register: result
 
-<<<<<<< HEAD
     - name: Check Calibre-web is stopped
-=======
-    - name: Check Calibre is stopped
->>>>>>> b6ac9743 (rename misnamed calibre role to calibreweb)
       assert:
         that:
           - not result.changed
