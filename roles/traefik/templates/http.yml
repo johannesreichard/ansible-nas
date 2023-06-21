@@ -1,6 +1,6 @@
 http:
   routers:
-    router-homeassistant
+    router-homeassistant:
       entryPoints:
         - websecure
         rule: Host(`homeassistant.the-ivies.org`)
@@ -8,7 +8,7 @@ http:
         tls:
           certResolver: letsencrypt
   services:
-    service-homeassistant
+    service-homeassistant:
       loadBalancer:
         servers:
         - url: "http://10.10.10.10:8123"
