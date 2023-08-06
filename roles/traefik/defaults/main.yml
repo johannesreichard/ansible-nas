@@ -30,5 +30,9 @@ traefik_environment_variables:
 # traefik_acme_server: "https://acme-staging-v02.api.letsencrypt.org/directory" # staging
 traefik_acme_server: "https://acme-v02.api.letsencrypt.org/directory" # production
 
+# traefik whitelist to confine service to internal service only
+# all roles should hale a flag to allow availability from internet
+traefik_allowlist_internal_only: 10.10.10.0/23
+
 # specs
 traefik_memory: 1g
