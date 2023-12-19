@@ -27,7 +27,10 @@
           traefik.http.routers.rssbridge.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.rssbridge.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.rssbridge.loadbalancer.server.port: "80"
-  when: rssbridge_enabled is true
+          flame.type: "application"
+          flame.name: "{{ rssbridge_hostname }}"
+          flame.url: "{{ rssbridge_hostname }}.{{ ansible_nas_domain }}"
+      when: rssbridge_enabled is true
 
 - name: Stop RSSBridge
   block:

@@ -57,6 +57,9 @@
           traefik.http.routers.gitlab.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.gitlab.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.gitlab.loadbalancer.server.port: "80"
+          flame.type: "application"
+          flame.name: "{{ gitlab_hostname }}"
+          flame.url: "{{ gitlab_hostname }}.{{ ansible_nas_domain }}"
   when: gitlab_enabled is true
 
 - name: Stop Gitlab

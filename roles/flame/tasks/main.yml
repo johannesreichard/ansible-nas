@@ -1,0 +1,50 @@
+---
+- name: Start flame
+  block:
+    - name: Create flame Directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+      with_items:
+        - "{{ flame_data_directory }}"
+
+    - name: flame Docker Container
+      community.docker.docker_container:
+        name: "{{ flame_container_name }}"
+        image: "{{ flame_image_name }}:{{ flame_image_version }}"
+        pull: true
+        volumes:
+          - "{{ flame_data_directory }}:/app/data:rw"
+          - "/var/run/docker.sock:/var/run/docker.sock:ro"
+        ports:
+          - "{{ flame_port }}:5005"
+        restart_policy: unless-stopped
+        memory: "{{ flame_memory }}"
+        env:
+          PASSWORD: !vault |
+                      $ANSIBLE_VAULT;1.1;AES256
+                      39633661356261393265326136643233376132636366303239636438336264636232363466623436
+                      3731396666333738653731303363313162313662373739660a353734363733353535643033663364
+                      30306131653239316562343238333662393431346136326664626363316661656361663532353364
+                      3361643464363134640a306562383134663731656664646262353133623836336438313435646335
+                      6530
+        labels:
+          traefik.enable: "{{ flame_available_externally | string }}"
+          traefik.http.routers.flame.rule: "Host(`{{ flame_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.flame.tls.certresolver: "letsencrypt"
+          traefik.http.routers.flame.tls.domains[0].main: "{{ ansible_nas_domain }}"
+          traefik.http.routers.flame.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.services.flame.loadbalancer.server.port: "5005"
+          flame.type: "application" # "app" works too
+          flame.name: "flame"
+          flame.url: "Host(`{{ flame_hostname }}.{{ ansible_nas_domain }}`)"
+          flame.icon: "fire-circle" # optional, default is "docker"
+  when: flame_enabled is true
+
+- name: Stop flame
+  block:
+    - name: Stop flame
+      community.docker.docker_container:
+        name: "{{ flame_container_name }}"
+        state: absent
+  when: flame_enabled is false

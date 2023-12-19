@@ -1,0 +1,18 @@
+---
+unifi_enabled: false
+unifi_available_externally: false
+
+# directories
+unifi_data_directory: "{{ docker_home }}/unifi"
+# network
+unifi_port: "8444"
+unifi_hostname: "unifi"
+
+unifi_image_name: "lscr.io/linuxserver/unifi-controller"
+unifi_image_version: "latest"
+
+# specs
+unifi_memory: 1g
+
+# docker
+unifi_container_name: unifi

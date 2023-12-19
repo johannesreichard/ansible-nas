@@ -46,6 +46,9 @@
           traefik.http.routers.prometheus.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.prometheus.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.prometheus.loadbalancer.server.port: "9090"
+          flame.type: "application"
+          flame.name: "{{ stats_prometheus_hostname }}"
+          flame.url: "{{ stats_prometheus_hostname }}.{{ ansible_nas_domain }}"
   when: stats_enabled is true
 
 - name: Stop Prometheus

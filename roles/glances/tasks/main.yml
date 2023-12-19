@@ -25,6 +25,9 @@
           traefik.http.routers.glances.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.glances.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.glances.loadbalancer.server.port: "61208"
+          flame.type: "application"
+          flame.name: "{{ glances_hostname }}"
+          flame.url: "{{ glances_hostname }}.{{ ansible_nas_domain }}"
   when: glances_enabled is true
 
 - name: Stop Glances

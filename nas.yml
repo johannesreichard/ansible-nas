@@ -1,6 +1,6 @@
 ---
 - name: Ansible-NAS
-  hosts: all
+  hosts: vidar
 
   roles:
     ###
@@ -31,6 +31,11 @@
       when: ansible_architecture == "aarch64"
       tags:
         - docker_arm
+        - skip_ansible_lint
+
+    - role: geerlingguy.security
+      tags:
+        - security
         - skip_ansible_lint
 
     ###
@@ -133,6 +138,10 @@
     - role: firefly
       tags:
         - firefly
+
+    - role: flame
+      tags:
+        - flame
 
     - role: freshrss
       tags:
@@ -393,6 +402,10 @@
     - role: ubooquity
       tags:
         - ubooquity
+
+    - role: unifi
+      tags:
+        - unifi
 
     - role: utorrent
       tags:

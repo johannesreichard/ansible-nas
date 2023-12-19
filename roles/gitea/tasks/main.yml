@@ -58,6 +58,9 @@
           traefik.http.routers.gitea.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.gitea.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.gitea.loadbalancer.server.port: "3000"
+          flame.type: "application"
+          flame.name: "{{ gitea_hostname }}"
+          flame.url: "{{ gitea_hostname }}.{{ ansible_nas_domain }}"
   when: gitea_enabled is true
 
 - name: Stop Gitea
