@@ -7,7 +7,7 @@
         state: directory
       with_items:
         - "{{ traefik_data_directory }}"
-#        - "{{ traefik_data_directory }}/config"
+        - "{{ traefik_data_directory }}/config"
         - "{{ traefik_data_directory }}/letsencrypt"
 
     - name: Template Traefik config.toml
@@ -16,11 +16,11 @@
         dest: "{{ traefik_data_directory }}/traefik.toml"
       register: template_config
 
-#    - name: Template Traefik file http.yml
-#     ansible.builtin.template:
-#        src: http.yml
-#        dest: "{{traefik_data_directory}}/config/http.yml"
-#      register: template_config_http
+    - name: Template Traefik file middlewares.yml
+      ansible.builtin.template:
+        src: middlewares.yml
+        dest: "{{traefik_data_directory}}/config/middlewares.yml"
+      register: template_config_middlewares
 
     - name: Traefik Docker Container
       community.docker.docker_container:
@@ -36,8 +36,8 @@
         env: "{{ traefik_environment_variables }}"
         restart_policy: unless-stopped
         memory: "{{ traefik_memory }}"
-#        recreate: "{{ template_config is changed or template_config_http is changed }}"
-        recreate: "{{ template_config is changed }}"
+        recreate: "{{ template_config is changed or template_config_middlewares is changed }}"
+        #recreate: "{{ template_config is changed }}"
         labels:
           flame.type: "application"
           flame.name: "traefik dashboard"

@@ -33,6 +33,9 @@
           traefik.http.routers.minio.tls.domains[0].main: "{{ ansible_nas_domain }}"
           traefik.http.routers.minio.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
           traefik.http.services.minio.loadbalancer.server.port: "9000"
+          flame.type: "application"
+          flame.name: "{{ minio_hostname }}"
+          flame.url: "{{ minio_hostname }}.{{ ansible_nas_domain }}"
   when: minio_enabled is true
 
 - name: Stop minio
