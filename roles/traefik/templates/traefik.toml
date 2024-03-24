@@ -24,16 +24,25 @@
   providersThrottleDuration = "2s"
   [providers.docker]
     exposedbydefault = false
+#  [providers.file.routers]
+#    directory = "/config"
+#    watch = true
+
+
+[serversTransport]
+  insecureSkipVerify = true
 
 [api]
   insecure = true
   dashboard = true
+
 
 [log]
   level = "{{ traefik_log_level }}"
 
 [ping]
   terminatingStatusCode = 0
+
 
 [certificatesResolvers]
   [certificatesResolvers.letsencrypt]
